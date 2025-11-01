@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Andhra Chillies</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fff5e1, #ffe1cc);
+      display: flex; align-items: center; justify-content: center;
+      height: 100vh; margin: 0;
+    }
+    .card {
+      background: white; padding: 35px; border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.1); width: 400px; text-align: center;
+    }
+    h2 { color: #a83232; }
+    select, input {
+      width: 90%; padding: 10px; margin: 10px 0;
+      border: 2px solid #ffa500; border-radius: 8px;
+    }
+    button {
+      background: #a83232; color: white; padding: 12px;
+      border: none; border-radius: 8px; width: 95%;
+      cursor: pointer; transition: 0.3s;
+    }
+    button:hover { background: #d64545; transform: scale(1.05); }
+    .price-box { margin-top: 10px; font-weight: bold; color: #ff7b00; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Welcome to Andhra Chillies 👨‍🍳</h2>
+    <h3>Order Your Meal</h3>
+
+    <form id="orderForm">
+      <select name="food" required>
+        <option value="" disabled selected>Select Dish</option>
+        <option>Veg Biryani</option>
+        <option>Paneer Fried Rice</option>
+        <option>Chicken Biryani</option>
+        <option>Mutton Curry</option>
+        <option>Veg Noodles</option>
+        <option>Egg Fried Rice</option>
+      </select>
+
+      <select id="quantity" name="quantity" required onchange="updatePrice()">
+        <option value="" disabled selected>Quantity</option>
+        <option value="1">1 Plate</option>
+        <option value="2">2 Plates</option>
+        <option value="3">3 Plates</option>
+      </select>
+
+      <div class="price-box" id="priceBox">Total: ₹0</div>
+
+      <button type="submit">🍽️ Place Order</button>
+    </form>
+  </div>
+
+  <script>
+    function updatePrice() {
+      const prices = {
+        "Veg Biryani": 120, "Paneer Fried Rice": 150,
+        "Chicken Biryani": 180, "Mutton Curry": 220,
+        "Veg Noodles": 130, "Egg Fried Rice": 140
+      };
+      let food = document.querySelector("[name='food']").value;
+      let qty = document.getElementById("quantity").value;
+      let total = food && qty ? prices[food] * qty : 0;
+      document.getElementById("priceBox").innerText = "Total: ₹" + total;
+    }
+
+    document.getElementById("orderForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      let form = new FormData(e.target);
+      let res = await fetch("/placeOrder", { method: "POST", body: new URLSearchParams(form) });
+      if (res.ok) window.location.href = "/success";
+    });
+  </script>
+</body>
+</html>
