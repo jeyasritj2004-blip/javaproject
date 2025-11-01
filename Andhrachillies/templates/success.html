@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Order Success</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffcc70, #ff8177);
+      font-family: 'Poppins', sans-serif; text-align: center;
+      display: flex; justify-content: center; align-items: center; height: 100vh;
+      color: #fff;
+    }
+    .box {
+      background: rgba(0,0,0,0.6); padding: 40px; border-radius: 16px;
+    }
+    button {
+      background: #fff; border: none; color: #ff4500;
+      padding: 12px 25px; border-radius: 8px; font-weight: bold;
+      cursor: pointer; transition: 0.3s;
+    }
+    button:hover { background: #ffd84a; color: #000; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>✅ Order Placed Successfully!</h1>
+    <p>Thank you for ordering from Andhra Chillies!</p>
+    <button onclick="location.href='/dashboard'">Back to Menu</button>
+  </div>
+</body>
+</html>
